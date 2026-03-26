@@ -2,6 +2,7 @@ package raffaele.dao;
 import jakarta.persistence.*;
 import raffaele.entities.Evento;
 import raffaele.entities.Genere;
+import raffaele.entities.PartitaDiCalcio;
 import raffaele.exeption.NotFoundException;
 import jakarta.persistence.TypedQuery;
 import raffaele.entities.Concerto;
@@ -46,4 +47,12 @@ public class EventoDao {
        query.setParameter("streaming", genere);
        return query.getResultList();
    }
+   public List<PartitaDiCalcio> getPartiteVinteInCasa(){
+        TypedQuery<PartitaDiCalcio> query= entityManager.createQuery("SELECT p FROM PartitaDiCalcio p WHERE p.squadravincente = p.squadradicasa", PartitaDiCalcio.class);
+       return query.getResultList();
+   }
+    public List<PartitaDiCalcio> getPartiteVinteInTrasferta(){
+        TypedQuery<PartitaDiCalcio> query= entityManager.createQuery("SELECT p FROM PartitaDiCalcio p WHERE p.squadravincente = p.squadraospite", PartitaDiCalcio.class);
+        return query.getResultList();
+    }
 }
